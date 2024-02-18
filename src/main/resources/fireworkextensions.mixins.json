@@ -2,7 +2,9 @@
   "required": true,
   "package": "net.natsucamellia.fireworkextensions.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
+  "mixins": [
+    "FireworkStarRecipeMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },
