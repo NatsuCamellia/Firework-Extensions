@@ -29,7 +29,12 @@ public class FireworkParticleMixin {
         int index = accessor.getAge() / 2;
         NbtCompound explosionNbt = accessor.getExplosions().getCompound(index);
 
-        ExplosionShape shape = FireworkExtensions.getExplosionShapeById(explosionNbt.getByte("Type")).orElse(VanillaExplosionShapes.SMALL_BALL);
+        int shapeId = explosionNbt.getByte("Type");
+        // This method overrides the explodeBall method, which is used by SMALL_BALL and LARGE_BALL.
+        // In order to keep the two explosions unaffected, skip injecting here.
+        if (shapeId == 0 || shapeId == 1) return;
+
+        ExplosionShape shape = FireworkExtensions.getExplosionShapeById(shapeId).orElse(VanillaExplosionShapes.SMALL_BALL);
         trail = explosionNbt.getBoolean("Trail");
         flicker = explosionNbt.getBoolean("Flicker");
         colors = explosionNbt.getIntArray("Colors");
