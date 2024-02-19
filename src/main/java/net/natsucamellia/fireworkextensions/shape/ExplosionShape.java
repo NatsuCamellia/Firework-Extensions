@@ -36,16 +36,20 @@ public abstract class ExplosionShape {
 
     /**
      * Explodes in ball shape.
-     * @param size the radius of the ball
-     * @param amount the total number of firework particle is about the cube of amount
-     * @param coords the center of the ball
-     * @param colors the initial colors of firework particles
-     * @param fadeColors the final colors of firework particles
-     * @param trail if a firework particle has a trail
-     * @param flicker if a firework particle flickers
+     * @param size the size of the ball
+     * @param amount the density of firework particles
      */
     protected void explodeBall(double size, int amount, Vec3d coords, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
-        for (int i = -amount; i <= amount; ++i) {
+        explodeHorizontalRing(size, 1, amount, coords, colors, fadeColors, trail, flicker, particleManager);
+    }
+
+    /**
+     * Explodes in horizontal ring shape.
+     * @param size the size of the ring
+     * @param amount the density of firework particles
+     */
+    protected void explodeHorizontalRing(double size, double heightRatio, int amount, Vec3d coords, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
+        for (int i = -(int)(amount * heightRatio); i <= (int)(amount * heightRatio); ++i) {
             for (int j = -amount; j <= amount; ++j) {
                 for (int k = -amount; k <= amount; ++k) {
                     double g = (double)j + (this.random.nextDouble() - this.random.nextDouble()) * 0.5;
