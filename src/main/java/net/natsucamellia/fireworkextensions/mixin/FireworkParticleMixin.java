@@ -22,6 +22,10 @@ public class FireworkParticleMixin {
     @Final
     private ParticleManager particleManager;
 
+    /**
+     * Through modifying this method, which is called when unknown type and ball type of fireworks explodes,
+     * we add custom behaviors after a firework explodes.
+     */
     @Inject(method = "explodeBall", at = @At("HEAD"), cancellable = true)
     private void injectExplodeBall(double size, int amount, int[] colors, int[] fadeColors, boolean trail, boolean flicker, CallbackInfo ci) {
         Particle particle = (Particle)(Object) this;
@@ -30,7 +34,7 @@ public class FireworkParticleMixin {
         NbtCompound explosionNbt = accessor.getExplosions().getCompound(index);
 
         int shapeId = explosionNbt.getByte("Type");
-        // This method overrides the explodeBall method, which is used by SMALL_BALL and LARGE_BALL.
+        // This method is used by vanilla explosion shape SMALL_BALL and LARGE_BALL.
         // In order to keep the two explosions unaffected, skip injecting here.
         if (shapeId == 0 || shapeId == 1) return;
 

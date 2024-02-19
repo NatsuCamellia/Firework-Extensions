@@ -27,6 +27,7 @@ public class VanillaExplosionShapes {
 
     /**
      * The implementation of vanilla explosions are in {@link net.minecraft.client.particle.FireworksSparkParticle.FireworkParticle#tick()}.
+     * This class is only for registering identifiers and ingredient items
      */
     private static class VanillaExplosionShape extends ExplosionShape {
         public VanillaExplosionShape(Identifier identifier, List<Item> ingredientItems) {

@@ -34,6 +34,10 @@ public class FireworkStarRecipeMixin {
     @Shadow
     private static Ingredient GUNPOWDER;
 
+    /**
+     * Used to check if a firework can be crafted with the given ingredients.
+     * This injection uses custom TYPE_MODIFIER rather than the original one.
+     */
     @Inject(method = "matches", at = @At("HEAD"), cancellable = true)
     void matches(RecipeInputInventory recipeInputInventory, World world, CallbackInfoReturnable<Boolean> ci) {
         boolean gunpowder = false;
@@ -79,6 +83,10 @@ public class FireworkStarRecipeMixin {
         ci.setReturnValue(gunpowder && dye);
     }
 
+    /**
+     * The main purpose of this injection is to give the firework a correct type id
+     * according to the ingredient.
+     */
     @Inject(method = "craft", at = @At("HEAD"), cancellable = true)
     void craft(RecipeInputInventory recipeInputInventory, DynamicRegistryManager dynamicRegistryManager, CallbackInfoReturnable<ItemStack> ci) {
         ItemStack itemStack = new ItemStack(Items.FIREWORK_STAR);
